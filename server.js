@@ -1,10 +1,17 @@
+const fs = require('fs');
+
 const express = require('express');
 const bodyParser = require('body-parser');
+
+const generateUUID = require('./generateUUID');
 
 const app = express();
 const PORT = 5003;
 
+const data = JSON.parse(fs.readFileSync('data.json'));
+
 app.use(express.static('wwwroot'));
+app.use(bodyParser.json());
 
 // @route GET /birthday
 // @desc Get all data - names + birthday
@@ -36,4 +43,8 @@ app.put('/birthday/:id', (req, res) => {
 
 app.listen(PORT, () => {
   console.log(`Server running and listening on PORT ${PORT}`);
+});
+
+process.on('SIGINT', () => {
+  fs.writeFileSync('data.json', JSON.stringify(data));
 });
