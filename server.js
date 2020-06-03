@@ -1,9 +1,6 @@
-// Node internal modules
 const fs = require('fs');
-// 3rd-Party Node-module deps
 const express = require('express');
 const bodyParser = require('body-parser');
-// 1st-Party Project deps
 const generateUUID = require('./generateUUID');
 
 // Init express
