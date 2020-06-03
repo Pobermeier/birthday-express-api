@@ -72,13 +72,15 @@ async function updateUIwithFetchedData(uiElement, userData) {
       const tableBody = document.querySelector('#birthday-list tbody');
       userData.forEach((user) => {
         tableBody.innerHTML += `
-          <tr>
+          <tr data-userId=${user.id}>
             <td>${user.first_name}</td>
             <td>${user.last_name}</td>
             <td>${new Date(parseInt(user.birthday) * 1000).toDateString()}</td>
-            <td><button class="btn btn-info">Edit</button>&nbsp;<button class="btn btn-danger del-btn" data-userId=${
+            <td><button class="btn btn-info" data-userId=${
               user.id
-            }>Delete</button></td>
+            }>Edit</button>&nbsp;<button class="btn btn-danger del-btn" data-userId=${
+          user.id
+        }>Delete</button></td>
           </tr>
           `;
       });
