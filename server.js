@@ -1,10 +1,8 @@
 // Node internal modules
 const fs = require('fs');
-
 // 3rd-Party Node-module deps
 const express = require('express');
 const bodyParser = require('body-parser');
-
 // 1st-Party Project deps
 const generateUUID = require('./generateUUID');
 
@@ -58,6 +56,7 @@ app.post('/birthday', (req, res) => {
 // @desc Delete an entry
 app.delete('/birthday/:id', (req, res) => {
   const id = req.params.id;
+  console.log(`DELETE /birthday/${id}`);
 
   if (!id) {
     res.status(400).json({ msg: 'Missing param: ID' });
@@ -72,8 +71,29 @@ app.delete('/birthday/:id', (req, res) => {
 // @route PUT /birthday
 // @desc Edit & update an entry
 app.put('/birthday/:id', (req, res) => {
-  console.log('PUT /birthday/:id');
-  res.send('PUT /birthday/:id');
+  const id = req.params.id;
+  const { first_name, last_name, birthday } = req.body;
+
+  console.log(`PUT /birthday/${id}`);
+  console.log(req.body);
+
+  if (!id || !first_name || !last_name || !birthday) {
+    res.status(400).json({ msg: 'Invalid Data!' });
+    return;
+  }
+
+  users = users.map((user) => {
+    if (user.id === id) {
+      return {
+        id,
+        first_name,
+        last_name,
+        birthday,
+      };
+    }
+    return user;
+  });
+  res.status(200).json(users);
 });
 
 app.listen(PORT, () => {
