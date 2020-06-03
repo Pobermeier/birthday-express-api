@@ -1,0 +1,102 @@
+{
+	"info": {
+		"_postman_id": "be41f5eb-2854-4cd5-93ec-1c09a92f9f8e",
+		"name": "Birthday API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Get All Birthdays",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:5003/birthday",
+					"host": [
+						"localhost"
+					],
+					"port": "5003",
+					"path": [
+						"birthday"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add New Birthday",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"first_name\": \"Patrick\",\n\t\"last_name\": \"Obermeier\",\n\t\"birthday\": \"770496315000\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:5003/birthday",
+					"host": [
+						"localhost"
+					],
+					"port": "5003",
+					"path": [
+						"birthday"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Single Birthday",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "localhost:5003/birthday/hmuinforg2ekazfk88i",
+					"host": [
+						"localhost"
+					],
+					"port": "5003",
+					"path": [
+						"birthday",
+						"hmuinforg2ekazfk88i"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Single Birthday",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "    {\r\n        \"first_name\": \"Patrick\",\r\n        \"last_name\": \"Berger\",\r\n        \"birthday\": \"770496455000\"\r\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:5003/birthday/hmuinforg2ekazfk88i",
+					"host": [
+						"localhost"
+					],
+					"port": "5003",
+					"path": [
+						"birthday",
+						"hmuinforg2ekazfk88i"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
