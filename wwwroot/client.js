@@ -8,6 +8,28 @@
   const birthdayInput = document.getElementById('birthday');
   const alertContainer = document.getElementById('alerts');
 
+  window.addEventListener('load', async () => {
+    const users = await (await fetch('http://localhost:5003/birthday')).json();
+    await updateUIwithFetchedData(birthdayList, users);
+    showAlert('Data successfully fetched from server!', 'info');
+  });
+
+  birthdayList.addEventListener('click', async (e) => {
+    if (e.target.classList.contains('del-btn')) {
+      const id = e.target.dataset.userid;
+
+      const users = await (
+        await fetch(`http://localhost:5003/birthday/${id}`, {
+          method: 'DELETE',
+        })
+      ).json();
+
+      await updateUIwithFetchedData(birthdayList, users);
+
+      showAlert('User deleted!', 'danger');
+    }
+  });
+
   addBirthdayForm.addEventListener('submit', async (e) => {
     e.preventDefault();
 
@@ -34,28 +56,6 @@
     showAlert('User successfully added!', 'success');
 
     await updateUIwithFetchedData(birthdayList, users);
-  });
-
-  birthdayList.addEventListener('click', async (e) => {
-    if (e.target.classList.contains('del-btn')) {
-      const id = e.target.dataset.userid;
-
-      const users = await (
-        await fetch(`http://localhost:5003/birthday/${id}`, {
-          method: 'DELETE',
-        })
-      ).json();
-
-      await updateUIwithFetchedData(birthdayList, users);
-
-      showAlert('User deleted!', 'danger');
-    }
-  });
-
-  window.addEventListener('load', async () => {
-    const users = await (await fetch('http://localhost:5003/birthday')).json();
-    await updateUIwithFetchedData(birthdayList, users);
-    showAlert('Data successfully fetched from server!', 'info');
   });
 
   async function updateUIwithFetchedData(uiElement, userData) {
