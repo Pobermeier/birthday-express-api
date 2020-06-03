@@ -1,17 +1,23 @@
+// Node internal modules
 const fs = require('fs');
 
+// 3rd-Party Node-module deps
 const express = require('express');
 const bodyParser = require('body-parser');
 
+// 1st-Party Project deps
 const generateUUID = require('./generateUUID');
 
+// Init express
 const app = express();
 const PORT = 5003;
 
-const data = JSON.parse(fs.readFileSync('data.json'));
-
+// Express middleware
 app.use(express.static('wwwroot'));
 app.use(bodyParser.json());
+
+// Load data from json-file & make data transformations on in-memory data while server is running
+const data = JSON.parse(fs.readFileSync('data.json'));
 
 // @route GET /birthday
 // @desc Get all data - names + birthday
@@ -66,6 +72,7 @@ app.listen(PORT, () => {
   console.log(`Server running and listening on PORT ${PORT}`);
 });
 
+// On process-exit (STRC-C * 2) write user data to JSON-file
 process.on('SIGINT', () => {
   fs.writeFileSync('data.json', JSON.stringify(data));
 });
