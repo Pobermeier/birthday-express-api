@@ -24,6 +24,10 @@
       })
     ).json();
 
+    firstNameInput.value = '';
+    lastNameInput.value = '';
+    birthdayInput.value = '';
+
     await updateUIwithFetchedData(birthdayList, users);
   });
 
