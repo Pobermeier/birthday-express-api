@@ -1,7 +1,7 @@
 {
   "name": "birthday-express-api",
   "version": "1.0.0",
-  "description": "A simple API written with Node & Express to manage birthdays",
+  "description": "A simple API + Front-end to manage birthdays written with Node & Express",
   "main": "server.js",
   "scripts": {
     "start": "node server",
