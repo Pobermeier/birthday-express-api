@@ -17,14 +17,14 @@ app.use(express.static('wwwroot'));
 app.use(bodyParser.json());
 
 // Load data from json-file & make data transformations on in-memory data while server is running
-const data = JSON.parse(fs.readFileSync('data.json'));
+let users = JSON.parse(fs.readFileSync('data.json'));
 
 // @route GET /birthday
 // @desc Get all data - names + birthday
 app.get('/birthday', (req, res) => {
   console.log('GET /birthday');
-  if (data) {
-    res.status(200).json(data);
+  if (users) {
+    res.status(200).json(users);
   } else {
     res.status(500).json({ msg: 'Internal Server Error (500)' });
   }
@@ -43,22 +43,30 @@ app.post('/birthday', (req, res) => {
   }
 
   newUserData.id = generateUUID();
-  data &&
-    data.push({
+  users &&
+    users.push({
       id: generateUUID(),
       first_name: req.body.first_name,
       last_name: req.body.last_name,
       birthday: req.body.birthday,
     });
 
-  res.status(200).json(data);
+  res.status(200).json(users);
 });
 
 // @route DELETE /birthday/:id
 // @desc Delete an entry
 app.delete('/birthday/:id', (req, res) => {
-  console.log('DELETE /birthday/:id');
-  res.send('DELETE /birthday/:id');
+  const id = req.params.id;
+
+  if (!id) {
+    res.status(400).json({ msg: 'Missing param: ID' });
+    return;
+  }
+
+  users = users.filter((user) => user.id !== id);
+
+  res.status(200).json(users);
 });
 
 // @route PUT /birthday
@@ -74,5 +82,5 @@ app.listen(PORT, () => {
 
 // On process-exit (STRC-C * 2) write user data to JSON-file
 process.on('SIGINT', () => {
-  fs.writeFileSync('data.json', JSON.stringify(data));
+  fs.writeFileSync('data.json', JSON.stringify(users));
 });
