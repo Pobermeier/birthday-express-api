@@ -9,7 +9,9 @@
   const alertContainer = document.getElementById('alerts');
 
   window.addEventListener('load', async () => {
-    const users = await (await fetch('http://localhost:5003/birthday')).json();
+    const users = await (
+      await fetch(`http://${window.location.hostname}:5003/birthday`)
+    ).json();
     await updateUIwithFetchedData(birthdayList, users);
     showAlert('Data successfully fetched from server!', 'info');
   });
@@ -19,7 +21,7 @@
       const id = e.target.dataset.userid;
 
       const users = await (
-        await fetch(`http://localhost:5003/birthday/${id}`, {
+        await fetch(`http://${window.location.hostname}:5003/birthday/${id}`, {
           method: 'DELETE',
         })
       ).json();
@@ -61,7 +63,7 @@
       );
 
       const users = await (
-        await fetch(`http://localhost:5003/birthday/${id}`, {
+        await fetch(`http://${window.location.hostname}:5003/birthday/${id}`, {
           method: 'PUT',
           headers: {
             'Content-Type': 'application/json',
@@ -101,7 +103,7 @@
     e.preventDefault();
 
     const users = await (
-      await fetch('http://localhost:5003/birthday', {
+      await fetch(`http://${window.location.hostname}:5003/birthday`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
