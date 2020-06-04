@@ -100,4 +100,5 @@ app.listen(PORT, () => {
 // On process-exit (STRC-C * 2) write user data to JSON-file
 process.on('SIGINT', () => {
   fs.writeFileSync('data.json', JSON.stringify(users));
+  process.exit();
 });
