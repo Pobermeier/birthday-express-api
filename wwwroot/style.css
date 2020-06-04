@@ -6,6 +6,24 @@
   z-index: 999;
 }
 
+.navbar.navbar-dark.bg-dark {
+  background-color: #3186a0 !important;
+}
+
+table .thead-dark th {
+  background-color: #408ae6 !important;
+  border-color: #408ae6 !important;
+}
+
+table td button {
+  margin: 0.5rem;
+  width: 100px;
+}
+
+.text-align-right {
+  text-align: right;
+}
+
 #birthday-list {
   font-size: 0.9rem;
 }

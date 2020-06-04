@@ -140,7 +140,7 @@
                 <th scope="col">First Name</th>
                 <th scope="col">Last Name</th>
                 <th scope="col">Birthday</th>
-                <th scope="col">Actions</th>
+                <th scope="col"></th>
               </tr>
             </thead>
             <tbody></tbody>
@@ -163,9 +163,9 @@
               <td>${new Date(
                 parseInt(user.birthday) * 1000,
               ).toDateString()}</td>
-              <td><button class="btn btn-info edit-btn" data-userId=${
+              <td class="text-align-right"><button class="btn btn-info edit-btn" data-userId=${
                 user.id
-              }>Edit</button>&nbsp;<button class="btn btn-danger del-btn" data-userId=${
+              }>Edit</button><button class="btn btn-danger del-btn" data-userId=${
             user.id
           }>Delete</button></td>
             </tr>
@@ -179,9 +179,9 @@
               <td><label for="edit-birthday"><strong>Birthday:</strong></label>&nbsp;<input type="date" name="edit-birthday" id="edit-birthday-${
                 user.id
               }" required value="${year}-${month}-${day}"></td>
-              <td><button class="btn btn-info save-edit-btn" data-userId=${
+              <td class="text-align-right"><button class="btn btn-info save-edit-btn" data-userId=${
                 user.id
-              }>Save</button>&nbsp;<button class="btn btn-danger cancel-edit-btn" data-userId=${
+              }>Save</button><button class="btn btn-danger cancel-edit-btn" data-userId=${
             user.id
           }>Cancel</button></td>
             </tr>
