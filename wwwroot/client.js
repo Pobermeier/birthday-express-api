@@ -28,11 +28,72 @@
 
       showAlert('User deleted!', 'danger');
     } else if (e.target.classList.contains('edit-btn')) {
-      console.log('Edit btn clicked');
+      const id = e.target.dataset.userid;
+
+      const infoRow = document.querySelector(
+        `tr[data-userid="${id}"]:not(.hidden)`,
+      );
+      const editRow = document.querySelector(`tr[data-userid="${id}"].hidden`);
+
+      infoRow.classList.add('hidden');
+      editRow.classList.remove('hidden');
     } else if (e.target.classList.contains('cancel-edit-btn')) {
-      console.log('Cancel Edit btn clicked');
+      const id = e.target.dataset.userid;
+
+      const editRow = document.querySelector(
+        `tr[data-userid="${id}"]:not(.hidden)`,
+      );
+      const infoRow = document.querySelector(`tr[data-userid="${id}"].hidden`);
+
+      infoRow.classList.remove('hidden');
+      editRow.classList.add('hidden');
     } else if (e.target.classList.contains('save-edit-btn')) {
-      console.log('Save edit btn clicked');
+      const id = e.target.dataset.userid;
+
+      const firstNameInput = document.querySelector(
+        `tr[data-userid="${id}"] #edit-first-name-${id}`,
+      );
+      const lastNameInput = document.querySelector(
+        `tr[data-userid="${id}"] #edit-last-name-${id}`,
+      );
+      const birthdayInput = document.querySelector(
+        `tr[data-userid="${id}"] #edit-birthday-${id}`,
+      );
+
+      const users = await (
+        await fetch(`http://localhost:5003/birthday/${id}`, {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            first_name: firstNameInput.value,
+            last_name: lastNameInput.value,
+            birthday: Math.round(
+              new Date(birthdayInput.value).getTime() / 1000,
+            ).toString(),
+          }),
+        })
+      ).json();
+
+      firstNameInput.value = '';
+      lastNameInput.value = '';
+      birthdayInput.value = '';
+
+      const editRow = document.querySelector(
+        `tr[data-userid="${id}"]:not(.hidden)`,
+      );
+      const infoRow = document.querySelector(`tr[data-userid="${id}"].hidden`);
+
+      infoRow.classList.remove('hidden');
+      editRow.classList.add('hidden');
+
+      showAlert(
+        'User data successfully edited and saved to database!',
+        'success',
+      );
+
+      await updateUIwithFetchedData(birthdayList, users);
     }
   });
 
@@ -82,7 +143,9 @@
             </thead>
             <tbody></tbody>
             </table>`;
+
         const tableBody = document.querySelector('#birthday-list tbody');
+
         userData.forEach((user) => {
           const birthday = new Date(parseInt(user.birthday) * 1000);
           const year = birthday.getFullYear();
@@ -104,8 +167,7 @@
             user.id
           }>Delete</button></td>
             </tr>
-            <tr data-userId=${user.id}>
-              <form id="edit-user-${user.id}">
+            <tr data-userId=${user.id} class="hidden">
               <td><label for="edit-first-name"><strong>First Name:</strong></label>&nbsp;<input type="text" name="edit-first-name" id="edit-first-name-${
                 user.id
               }" required value="${user.first_name}"></td>
@@ -115,7 +177,7 @@
               <td><label for="edit-birthday"><strong>Birthday:</strong></label>&nbsp;<input type="date" name="edit-birthday" id="edit-birthday-${
                 user.id
               }" required value="${year}-${month}-${day}"></td>
-              <td><button type="submit" class="btn btn-info save-edit-btn" data-userId=${
+              <td><button class="btn btn-info save-edit-btn" data-userId=${
                 user.id
               }>Save</button>&nbsp;<button class="btn btn-danger cancel-edit-btn" data-userId=${
             user.id
