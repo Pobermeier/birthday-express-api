@@ -162,7 +162,7 @@
               <td>${user.last_name}</td>
               <td>${new Date(
                 parseInt(user.birthday) * 1000,
-              ).toDateString()}</td>
+              ).toLocaleDateString()}</td>
               <td class="text-align-right"><button class="btn btn-info edit-btn" data-userId=${
                 user.id
               }>Edit</button><button class="btn btn-danger del-btn" data-userId=${
