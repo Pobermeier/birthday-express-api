@@ -27,6 +27,12 @@
       await updateUIwithFetchedData(birthdayList, users);
 
       showAlert('User deleted!', 'danger');
+    } else if (e.target.classList.contains('edit-btn')) {
+      console.log('Edit btn clicked');
+    } else if (e.target.classList.contains('cancel-edit-btn')) {
+      console.log('Cancel Edit btn clicked');
+    } else if (e.target.classList.contains('save-edit-btn')) {
+      console.log('Save edit btn clicked');
     }
   });
 
@@ -78,6 +84,13 @@
             </table>`;
         const tableBody = document.querySelector('#birthday-list tbody');
         userData.forEach((user) => {
+          const birthday = new Date(parseInt(user.birthday) * 1000);
+          const year = birthday.getFullYear();
+          let month = birthday.getMonth() + 1;
+          month = addLeadingZero(month);
+          let day = birthday.getDate();
+          day = addLeadingZero(day);
+
           tableBody.innerHTML += `
             <tr data-userId=${user.id}>
               <td>${user.first_name}</td>
@@ -85,16 +98,38 @@
               <td>${new Date(
                 parseInt(user.birthday) * 1000,
               ).toDateString()}</td>
-              <td><button class="btn btn-info" data-userId=${
+              <td><button class="btn btn-info edit-btn" data-userId=${
                 user.id
               }>Edit</button>&nbsp;<button class="btn btn-danger del-btn" data-userId=${
             user.id
           }>Delete</button></td>
             </tr>
+            <tr data-userId=${user.id}>
+              <form id="edit-user-${user.id}">
+              <td><label for="edit-first-name"><strong>First Name:</strong></label>&nbsp;<input type="text" name="edit-first-name" id="edit-first-name-${
+                user.id
+              }" required value="${user.first_name}"></td>
+              <td><label for="edit-last-name"><strong>Last Name:</strong></label>&nbsp;<input type="text" name="edit-last-name" id="edit-last-name-${
+                user.id
+              }" required value="${user.last_name}"></td>
+              <td><label for="edit-birthday"><strong>Birthday:</strong></label>&nbsp;<input type="date" name="edit-birthday" id="edit-birthday-${
+                user.id
+              }" required value="${year}-${month}-${day}"></td>
+              <td><button type="submit" class="btn btn-info save-edit-btn" data-userId=${
+                user.id
+              }>Save</button>&nbsp;<button class="btn btn-danger cancel-edit-btn" data-userId=${
+            user.id
+          }>Cancel</button></td>
+            </tr>
             `;
         });
       }
     }
+  }
+
+  function addLeadingZero(numberToCheck) {
+    if (numberToCheck <= 9) return `0${numberToCheck}`;
+    else return numberToCheck;
   }
 
   function showAlert(text, type) {

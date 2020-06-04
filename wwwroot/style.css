@@ -5,3 +5,11 @@
   width: 100%;
   z-index: 999;
 }
+
+#birthday-list {
+  font-size: 0.9rem;
+}
+
+.hidden {
+  display: none;
+}
