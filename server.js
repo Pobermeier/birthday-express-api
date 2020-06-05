@@ -1,4 +1,5 @@
 const fs = require('fs');
+const path = require('path');
 const express = require('express');
 const bodyParser = require('body-parser');
 const generateUUID = require('./generateUUID');
@@ -8,7 +9,7 @@ const app = express();
 const PORT = 5003;
 
 // Express middleware
-app.use(express.static('wwwroot'));
+app.use(express.static(path.join(__dirname, 'wwwroot')));
 app.use(bodyParser.json());
 
 // Load data from json-file & make data transformations on in-memory data while server is running
