@@ -211,8 +211,11 @@
     const alertId = generateUUID();
 
     alertContainer.innerHTML += `
-      <div class="alert alert-${type}" data-alertid="${alertId}" role="alert">
+      <div class="alert alert-${type} alert-dismissible fade show" data-alertid="${alertId}" role="alert">
         ${text}
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
       </div>
     `;
 
