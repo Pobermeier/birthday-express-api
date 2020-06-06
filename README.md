@@ -1,6 +1,6 @@
 # Birthday Organizer - Express API + Vanilla JS Web App
 
-Birthday Organizer is a simple front-end application build with Vanilla JS & Bootstrap components that provides full CRUD-functionality. It fetches it's data from an Node- & Express-based REST-API. Data storage on the server-side is implemented with an in-memory database that is written to a JSON-file once the server gracefully shuts down. A live version of the front-end app can be found [here](http://104.248.44.20:5003/)
+Birthday Organizer is a simple front-end application build with Vanilla JS & Bootstrap components that provides full CRUD-functionality. It fetches its data from an Node- & Express-based REST-API. Data storage on the server-side is implemented with an in-memory database that is written to a JSON-file once the server gracefully shuts down. A live version of the front-end app can be found [here](http://104.248.44.20:5003/)
 
 ## Project Set-Up
 
