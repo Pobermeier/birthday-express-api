@@ -1,9 +1,13 @@
-#alerts {
+/* #alerts {
   position: fixed;
   bottom: 0;
   left: 0;
   width: 100%;
   z-index: 999;
+} */
+
+.navbar {
+  margin-bottom: 1rem;
 }
 
 .navbar.navbar-dark.bg-dark {
