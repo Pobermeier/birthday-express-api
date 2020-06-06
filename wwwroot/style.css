@@ -17,7 +17,11 @@ table .thead-dark th {
 
 table td button {
   margin: 0.5rem;
-  width: 100px;
+  width: 50px;
+}
+
+table td button svg {
+  pointer-events: none;
 }
 
 .text-align-right {
